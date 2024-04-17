@@ -13,6 +13,6 @@ Substitua {operacao} com a operação desejada (sum para soma, sub para subtraç
 ## Exemplos de Uso
 - Soma: Para calcular a soma de 2 e 3, faça uma solicitação GET para: http://localhost:8080/sum/2/3
 - Subtração: Para calcular a subtração de 5 e 3, faça uma solicitação GET para: http://localhost:8080/sub/5/3
-- Multiplicação: Para calcular a multiplicação de 4 e 6, faça uma solicitação GET para: http://localhost:8080/mult/4/6
+- Multiplicação: Para calcular a multiplicação de 4 e 6, faça uma solicitação GET para: http://localhost:8080/multi/4/6
 - Divisão: Para calcular a divisão de 10 por 2, faça uma solicitação GET para: http://localhost:8080/div/10/2
 - Média: Para calcular a média de 4 e 8, faça uma solicitação GET para: http://localhost:8080/avg/4/8
