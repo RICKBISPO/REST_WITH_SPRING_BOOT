@@ -18,4 +18,5 @@ public class MathControllerUtilities {
         String number = strNumber.replaceAll(",", ".");
         return number.matches("[-+]?[0-9]*\\.?[0-9]+");
     }
+
 }

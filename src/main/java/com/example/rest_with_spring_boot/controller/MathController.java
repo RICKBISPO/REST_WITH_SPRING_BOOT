@@ -65,4 +65,5 @@ public class MathController {
             return (MathControllerUtilities.convertToDouble(numberOne) + MathControllerUtilities.convertToDouble(numberTwo)) / 2;
         }
     }
+
 }
