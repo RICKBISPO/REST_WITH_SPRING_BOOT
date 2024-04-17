@@ -8,7 +8,7 @@ Para usar a calculadora, você pode fazer solicitações HTTP para o seguinte en
 
 `http://localhost:8080/{operacao}/{numeroUm}/{numeroDois}`
 
-Substitua {operacao} com a operação desejada (sum para soma, sub para subtração, mult para multiplicação, div para divisão e avg para média), {numeroUm} e {numeroDois} com os números que você deseja calcular.
+Substitua {operacao} com a operação desejada (sum para soma, sub para subtração, multi para multiplicação, div para divisão e avg para média), {numeroUm} e {numeroDois} com os números que você deseja calcular.
 
 ## Exemplos de Uso
 - Soma: Para calcular a soma de 2 e 3, faça uma solicitação GET para: http://localhost:8080/sum/2/3
