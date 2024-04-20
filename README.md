@@ -3,7 +3,7 @@ Este repositório é dedicado ao estudo de API REST com Spring Boot.
 Aqui você encontrará exemplos práticos e recursos para ajudá-lo a aprender e aprimorar suas habilidades no desenvolvimento de APIs RESTful com o framework Spring Boot.
 
 # Exemplos em Branches
-Explore as diferentes branches para ver exemplos práticos:
+Segue abaixo as branches:
 
 - [Pessoas](https://github.com/RICKBISPO/REST_WITH_SPRING_BOOT/tree/pessoas)
 - [Calculadora](https://github.com/RICKBISPO/REST_WITH_SPRING_BOOT/tree/calculadora)
