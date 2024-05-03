@@ -1,13 +1,14 @@
 package com.example.rest_with_spring_boot.unittests.mapper.mocks;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.example.rest_with_spring_boot.data.vo.v1.PersonVO;
+import com.example.rest_with_spring_boot.data.vo.v2.PersonVOV2;
 import com.example.rest_with_spring_boot.model.Person;
 
 public class MockPerson {
-
 
     public Person mockEntity() {
         return mockEntity(0);
@@ -48,9 +49,19 @@ public class MockPerson {
         person.setAddress("Addres Test" + number);
         person.setFirstName("First Name Test" + number);
         person.setGender(((number % 2)==0) ? "Male" : "Female");
-        person.setId(number.longValue());
+        person.setKey(number.longValue());
         person.setLastName("Last Name Test" + number);
         return person;
     }
 
+    public PersonVOV2 mockVOV2(Integer number) {
+        PersonVOV2 person = new PersonVOV2();
+        person.setAddress("Addres Test" + number);
+        person.setFirstName("First Name Test" + number);
+        person.setGender(((number % 2)==0) ? "Male" : "Female");
+        person.setKey(number.longValue());
+        person.setLastName("Last Name Test" + number);
+        person.setBirthDay(new Date());
+        return person;
+    }
 }

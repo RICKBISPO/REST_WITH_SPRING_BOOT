@@ -10,9 +10,10 @@ import java.util.Date;
 public class PersonMapper {
 
     public PersonVOV2 convertEntityToVOV2(Person entity) {
+
         PersonVOV2 personVOV2 = new PersonVOV2();
 
-        personVOV2.setId(entity.getId());
+        personVOV2.setKey(entity.getId());
         personVOV2.setFirstName(entity.getFirstName());
         personVOV2.setLastName(entity.getLastName());
         personVOV2.setAddress(entity.getAddress());
@@ -23,9 +24,10 @@ public class PersonMapper {
     }
 
     public Person convertVOV2ToEntity(PersonVOV2 personVOV2) {
+
         Person entity = new Person();
 
-        entity.setId(personVOV2.getId());
+        entity.setId(personVOV2.getKey());
         entity.setFirstName(personVOV2.getFirstName());
         entity.setLastName(personVOV2.getLastName());
         entity.setAddress(personVOV2.getAddress());

@@ -1,7 +1,9 @@
 package com.example.rest_with_spring_boot.services;
 
+import com.example.rest_with_spring_boot.controller.PersonController;
 import com.example.rest_with_spring_boot.data.vo.v1.PersonVO;
 import com.example.rest_with_spring_boot.data.vo.v2.PersonVOV2;
+import com.example.rest_with_spring_boot.exceptions.RequiredObjectNullException;
 import com.example.rest_with_spring_boot.exceptions.ResourceNotFoundException;
 import com.example.rest_with_spring_boot.mapper.DozerMapper;
 import com.example.rest_with_spring_boot.mapper.custom.PersonMapper;
@@ -9,6 +11,8 @@ import com.example.rest_with_spring_boot.model.Person;
 import com.example.rest_with_spring_boot.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.util.List;
 import java.util.logging.Logger;
@@ -31,20 +35,38 @@ public class PersonServices {
         var entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
 
-        return DozerMapper.parseObject(entity, PersonVO.class);
+        PersonVO vo = DozerMapper.parseObject(entity, PersonVO.class);
+        vo.add(linkTo(methodOn(PersonController.class)
+                .findById(id))
+                .withSelfRel());
+
+        return vo;
     }
 
     public List<PersonVO> findAll() {
 
         logger.info("Find all people!");
-        return DozerMapper.parseListObjects(repository.findAll(), PersonVO.class);
+
+        var persons = DozerMapper.parseListObjects(repository.findAll(), PersonVO.class);
+
+        persons.forEach(p ->
+           p.add(linkTo(methodOn(PersonController.class)
+                    .findById(p.getKey()))
+                    .withSelfRel())
+        );
+
+        return persons;
     }
 
     public PersonVO update(PersonVO person) {
 
+        if (person == null) {
+            throw new RequiredObjectNullException();
+        }
+
         logger.info("Updating one person!");
 
-        var entity = repository.findById(person.getId())
+        var entity = repository.findById(person.getKey())
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
 
         entity.setFirstName(person.getFirstName());
@@ -52,26 +74,48 @@ public class PersonServices {
         entity.setAddress(person.getAddress());
         entity.setGender(person.getGender());
 
-        return DozerMapper.parseObject(repository.save(entity), PersonVO.class);
+        PersonVO vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
+        vo.add(linkTo(methodOn(PersonController.class)
+                .findById(vo.getKey()))
+                .withSelfRel());
+
+        return vo;
     }
 
     public PersonVO create(PersonVO person) {
 
+        if (person == null) {
+            throw new RequiredObjectNullException();
+        }
+
         logger.info("Creating one person!");
 
         var entity = DozerMapper.parseObject(person, Person.class);
-        var vo = repository.save(entity);
 
-        return DozerMapper.parseObject(vo, PersonVO.class);
+        PersonVO vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
+        vo.add(linkTo(methodOn(PersonController.class)
+                .findById(vo.getKey()))
+                .withSelfRel());
+
+        return vo;
     }
 
     public PersonVOV2 createV2(PersonVOV2 person) {
+
+        if (person == null) {
+            throw new RequiredObjectNullException();
+        }
 
         logger.info("Creating one person! (V2)");
 
         var entity = personMapper.convertVOV2ToEntity(person);
 
-        return personMapper.convertEntityToVOV2(repository.save(entity));
+        PersonVOV2 vov2 = personMapper.convertEntityToVOV2(repository.save(entity));
+        vov2.add(linkTo(methodOn(PersonController.class)
+                .findById(vov2.getKey()))
+                .withSelfRel());
+
+        return vov2;
     }
 
     public void delete(Long id) {
