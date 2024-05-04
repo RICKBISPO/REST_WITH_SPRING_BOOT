@@ -5,7 +5,7 @@ Aqui você encontrará exemplos práticos e recursos para ajudá-lo a aprender e
 # Exemplos em Branches
 Segue abaixo as branches:
 
-- [Pessoas](https://github.com/RICKBISPO/REST_WITH_SPRING_BOOT/tree/pessoas)
+- [Crud Pessoas](https://github.com/RICKBISPO/REST_WITH_SPRING_BOOT/tree/crud_pessoas)
 - [Calculadora](https://github.com/RICKBISPO/REST_WITH_SPRING_BOOT/tree/calculadora)
 
 
