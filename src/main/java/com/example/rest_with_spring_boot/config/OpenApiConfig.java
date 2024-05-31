@@ -15,7 +15,7 @@ public class OpenApiConfig {
              .info(new Info()
                  .title("RESTful API with Spring Boot 3")
                  .version("v1")
-                 .description("The application allows you to perform CRUD (Create, Read, Update, Delete) operations on people's records.")
+                 .description("The application allows you to perform CRUD (Create, Read, Update, Delete) operations on people and books records.")
                  .termsOfService("https://swagger.io/terms/")
                  .license(new License().name("Apache 2.0").url("https://springdoc.org")));
      }

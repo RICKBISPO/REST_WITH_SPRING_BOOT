@@ -1,4 +1,4 @@
-package com.example.rest_with_spring_boot.data.vo.v2;
+package com.example.rest_with_spring_boot.integrationtests.vo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
@@ -10,19 +10,16 @@ import lombok.Setter;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
-import java.util.Date;
 
-@JsonPropertyOrder({"id", "first_name", "last_name", "address", "gender", "birth_day"})
+
 @EqualsAndHashCode
 @NoArgsConstructor
 @Getter @Setter
-public class PersonVOV2 extends RepresentationModel<PersonVOV2> implements Serializable {
+public class PersonVO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Mapping("id")
-    @JsonProperty("id")
-    private Long key;
+    private Long id;
 
     @JsonProperty("first_name")
     private String firstName;
@@ -32,8 +29,5 @@ public class PersonVOV2 extends RepresentationModel<PersonVOV2> implements Seria
 
     private String address;
     private String gender;
-
-    @JsonProperty("birth_day")
-    private Date birthDay;
     
 }

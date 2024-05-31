@@ -1,9 +1,7 @@
 package com.example.rest_with_spring_boot.unittests.mockito.services;
 
 import com.example.rest_with_spring_boot.data.vo.v1.PersonVO;
-import com.example.rest_with_spring_boot.data.vo.v2.PersonVOV2;
 import com.example.rest_with_spring_boot.exceptions.RequiredObjectNullException;
-import com.example.rest_with_spring_boot.mapper.custom.PersonMapper;
 import com.example.rest_with_spring_boot.model.Person;
 import com.example.rest_with_spring_boot.repositories.PersonRepository;
 import com.example.rest_with_spring_boot.services.PersonServices;
@@ -21,7 +19,6 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension.class)
@@ -34,9 +31,6 @@ class PersonServicesTest {
 
     @Mock
     PersonRepository repository;
-
-    @Mock
-    PersonMapper personMapper;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -97,7 +91,6 @@ class PersonServicesTest {
 
         long id = 1L;
         Person entity = input.mockEntity(1);
-        entity.setId(id);
 
         Person persistedEntity = entity;
         entity.setId(id);
@@ -173,47 +166,6 @@ class PersonServicesTest {
     }
 
     @Test
-    void createV2() {
-
-        long id = 1L;
-        Person entity = input.mockEntity(1);
-
-        Person persistedEntity = entity;
-        entity.setId(id);
-
-        PersonVOV2 vov2 = input.mockVOV2(1);
-        vov2.setKey(id);
-
-        when(personMapper.convertVOV2ToEntity(vov2)).thenReturn(entity);
-        when(repository.save(entity)).thenReturn(persistedEntity);
-        when(personMapper.convertEntityToVOV2(persistedEntity)).thenReturn(vov2);
-
-        PersonVOV2 result = service.createV2(vov2);
-
-        assertNotNull(result);
-        assertNotNull(result.getKey());
-        assertNotNull(result.getLinks());
-        assertTrue(result.toString().contains("links: [</api/person/v1/1>;rel=\"self\"]"));
-        assertEquals("Addres Test1", result.getAddress());
-        assertEquals("First Name Test1", result.getFirstName());
-        assertEquals("Last Name Test1", result.getLastName());
-        assertEquals("Female", result.getGender());
-    }
-
-    @Test
-    void createV2WithNullPerson() {
-
-        Exception exception = assertThrows(RequiredObjectNullException.class, () -> {
-            service.createV2(null);
-        });
-
-        String expectedMessage = "It is not allowed to persist a null object.";
-        String actualMessage = exception.getMessage();
-
-        assertTrue(actualMessage.contains(expectedMessage));
-    }
-
-    @Test
     void delete() {
 
         long id = 1L;
@@ -224,4 +176,5 @@ class PersonServicesTest {
 
         service.delete(id);
     }
+
 }

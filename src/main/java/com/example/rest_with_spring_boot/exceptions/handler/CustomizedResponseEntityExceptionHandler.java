@@ -1,6 +1,7 @@
 package com.example.rest_with_spring_boot.exceptions.handler;
 
 import com.example.rest_with_spring_boot.exceptions.ExceptionResponse;
+import com.example.rest_with_spring_boot.exceptions.InvalidJwtAuthenticationException;
 import com.example.rest_with_spring_boot.exceptions.RequiredObjectNullException;
 import com.example.rest_with_spring_boot.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -39,6 +40,14 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
         // retornando a resposta de exceção e o status code
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidJwtAuthenticationException.class)
+    public final ResponseEntity<ExceptionResponse> handleinvalidJwtAuthenticationException(Exception ex, WebRequest request) {
+        // criando um objeto de resposta de exceção
+        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+        // retornando a resposta de exceção e o status code
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.FORBIDDEN);
     }
 
 }

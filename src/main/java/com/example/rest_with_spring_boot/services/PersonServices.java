@@ -2,11 +2,9 @@ package com.example.rest_with_spring_boot.services;
 
 import com.example.rest_with_spring_boot.controller.PersonController;
 import com.example.rest_with_spring_boot.data.vo.v1.PersonVO;
-import com.example.rest_with_spring_boot.data.vo.v2.PersonVOV2;
 import com.example.rest_with_spring_boot.exceptions.RequiredObjectNullException;
 import com.example.rest_with_spring_boot.exceptions.ResourceNotFoundException;
 import com.example.rest_with_spring_boot.mapper.DozerMapper;
-import com.example.rest_with_spring_boot.mapper.custom.PersonMapper;
 import com.example.rest_with_spring_boot.model.Person;
 import com.example.rest_with_spring_boot.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +22,6 @@ public class PersonServices {
 
     @Autowired
     PersonRepository repository;
-
-    @Autowired
-    PersonMapper personMapper;
 
     public PersonVO findById(Long id) {
 
@@ -98,24 +93,6 @@ public class PersonServices {
                 .withSelfRel());
 
         return vo;
-    }
-
-    public PersonVOV2 createV2(PersonVOV2 person) {
-
-        if (person == null) {
-            throw new RequiredObjectNullException();
-        }
-
-        logger.info("Creating one person! (V2)");
-
-        var entity = personMapper.convertVOV2ToEntity(person);
-
-        PersonVOV2 vov2 = personMapper.convertEntityToVOV2(repository.save(entity));
-        vov2.add(linkTo(methodOn(PersonController.class)
-                .findById(vov2.getKey()))
-                .withSelfRel());
-
-        return vov2;
     }
 
     public void delete(Long id) {
